@@ -8,26 +8,6 @@ no service password-encryption
 !
 hostname spine-1
 !
-
-!
-no aaa new-model
-!
-!
-!
-mmi polling-interval 60
-no mmi auto-configure
-no mmi pvc
-mmi snmp-timeout 180
-!
-!
-ip cef
-no ipv6 cef
-!
-multilink bundle-name authenticated
-
-!
-redundancy
-
 !
 interface Loopback0
  ip address 172.16.0.1 255.255.255.255
