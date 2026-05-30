@@ -75,7 +75,7 @@ interface Vlan50
 interface nve1
   no shutdown
   host-reachability protocol bgp
-  source-interface loopback0 ! <-- used to create nve peers between switches on loopback 0
+  source-interface loopback0 
   member vni 1010
     ingress-replication protocol bgp
   member vni 10020
@@ -83,15 +83,18 @@ interface nve1
   member vni 50000 associate-vrf
 !
 interface Ethernet1/1
-  description e1/1 <--> isrv0 gi0/1
+  description e1/1 <--> spine-1 gi1/0
   no switchport
   ip address 39.0.0.2/30
   no shutdown
+  exit
 !
 interface Ethernet1/2
-  description e1/2 <--> isrv1 gi0/2
+  description e1/2 <--> ispine2 gi0/2
   no switchport
   ip address 60.0.0.2/30
+  no shutdown
+  exit
 !
 interface Ethernet1/10
   switchport access vlan 10
@@ -111,6 +114,7 @@ interface mgmt0
   vrf member management
 !
 interface loopback0
+  description used for nve peer and bgp 
 ! loopback used for nve peers and bgp 
   ip address 172.16.0.2/32
 !
