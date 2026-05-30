@@ -31,14 +31,18 @@ ip route 172.17.0.2/32 39.0.0.1
 !
 vlan 1,10,20,50
 vlan 10
+  name VLAN00010
   vn-segment 1010
 vlan 20
+  name VLAN00020
   vn-segment 10020
 vlan 50
+  name VLAN00050
   vn-segment 50000
 !
 !
 route-map RM-REDIST-DIRECT permit 10
+exit
 !
 vrf context PROD
   vni 50000
