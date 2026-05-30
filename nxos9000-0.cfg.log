@@ -97,11 +97,14 @@ interface Ethernet1/2
   exit
 !
 interface Ethernet1/10
+  switchport
   switchport access vlan 10
   no shutdown
 interface Ethernet1/11
+  switchport
   switchport access vlan 10
   no shutdown
+  exit
 !
 interface Ethernet1/15
   switchport access vlan 20
@@ -109,6 +112,7 @@ interface Ethernet1/15
 interface Ethernet1/16
   switchport access vlan 20
   no shutdown
+  exit
 !
 interface mgmt0
   vrf member management
@@ -117,12 +121,15 @@ interface loopback0
   description used for nve peer and bgp 
 ! loopback used for nve peers and bgp 
   ip address 172.16.0.2/32
+  exit
 !
 !
 icam monitor scale
 icam monitor system
 !
-! takend from dir bootflash: add this in so nexus boots up that image.
+! taken from dir bootflash: add this in so Nexus boots up that image.
+! look at version in dir bootflash:
+!
 boot nxos bootflash:/nxos64-cs.10.5.1.F.bin
 !
 router bgp 65000
@@ -141,5 +148,6 @@ router bgp 65000
   vrf PROD
     address-family ipv4 unicast
       redistribute direct route-map RM-REDIST-DIRECT
+      exit
 !
 end
