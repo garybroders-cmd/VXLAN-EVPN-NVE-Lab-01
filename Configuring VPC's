@@ -1,4 +1,6 @@
-Below generates the configuration for vpc to test coinnectivity.
+Below generates the configuration for vpc to test connectivity.
+
+Enter the IP address for VPC node below.
 
 VPCS> ip 192.168.10.10/24 192.168.10.1
 Checking for duplicate address...
@@ -12,4 +14,23 @@ siteA-10> save
 Saving startup configuration to startup.vpc
 .  done
 
+siteA-10> ping 192.168.10.1
+
+192.168.10.1 icmp_seq=1 timeout
+84 bytes from 192.168.10.1 icmp_seq=2 ttl=255 time=1.284 ms
+84 bytes from 192.168.10.1 icmp_seq=3 ttl=255 time=1.130 ms
+84 bytes from 192.168.10.1 icmp_seq=4 ttl=255 time=1.307 ms
+84 bytes from 192.168.10.1 icmp_seq=5 ttl=255 time=1.345 ms
+
 siteA-10> 
+siteA-11> sho ip
+
+NAME        : siteA-11[1]
+IP/MASK     : 192.168.10.11/24
+GATEWAY     : 192.168.10.1
+DNS         : 
+MAC         : 00:50:79:66:68:06
+LPORT       : 20000
+RHOST:PORT  : 127.0.0.1:30000
+MTU         : 1500
+
