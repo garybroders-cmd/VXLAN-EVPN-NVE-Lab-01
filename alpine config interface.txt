@@ -1,3 +1,7 @@
+
+login: root
+password: NULL
+
 sudo vi /etc/network/interfaces
 
 
