@@ -15,30 +15,13 @@ interface Loopback0
 interface GigabitEthernet0/0
  description iosv-0 gi0/0 <--> nxos9000-0 e1/1
  ip address 39.0.0.1 255.255.255.252
- duplex auto
- speed auto
- media-type rj45
+ no shutdown
 !
 interface GigabitEthernet0/1
  description iosv-0 <--> nxos9000-1 e1/2
  ip address 40.0.0.1 255.255.255.252
- duplex auto
- speed auto
- media-type rj45
+ no shutdown
 !
-interface GigabitEthernet0/2
- no ip address
- shutdown
- duplex auto
- speed auto
- media-type rj45
-!
-interface GigabitEthernet0/3
- no ip address
- shutdown
- duplex auto
- speed auto
- media-type rj45
 !
 router bgp 65000
  bgp router-id 172.16.0.1
