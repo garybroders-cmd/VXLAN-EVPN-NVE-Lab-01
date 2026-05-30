@@ -1,57 +1,41 @@
-﻿﻿nxos9000-1# terminal len 150
-nxos9000-1# sho run
-
-!Command: show running-config
-!Running configuration last done at: Fri May 29 20:13:38 2026
-!Time: Fri May 29 21:02:53 2026
-
-version 10.5(1) Bios:version  
-hostname nxos9000-1
-vdc nxos9000-1 id 1
-  limit-resource vlan minimum 16 maximum 4094
-  limit-resource vrf minimum 2 maximum 4096
-  limit-resource port-channel minimum 0 maximum 511
-  limit-resource m4route-mem minimum 58 maximum 58
-  limit-resource m6route-mem minimum 8 maximum 8
-
+﻿
+hostname leaf-b
+!
 nv overlay evpn
 feature bgp
 feature fabric forwarding
 feature interface-vlan
 feature vn-segment-vlan-based
 feature nv overlay
-
-no password strength-check
-username admin password 5 $5$IJEADN$H7bzfs2uE32O5F.K9kXpqaLoAFfmrKDTKwPz9Ck8sN8 
- role network-admin
-username cisco password 5 $5$PGBIEA$EtQZ.Hljwd/.rsV27ij90fNVq/XdTmNxJDe6eROEb5. 
- role network-admin
-username cisco passphrase  lifetime 99999 warntime 14 gracetime 3
+!
+username admin password Cisco123
+!
 ip domain-lookup
-copp profile strict
+!
 hardware access-list tcam region racl 512
 hardware access-list tcam region arp-ether 256 double-wide
-snmp-server user admin network-admin auth md5 520615BCF2F402ADE9217C10A514AE2D2E
-77 priv aes-128 331D47E4B4FD1DF4E3200450B41CC468743D localizedV2key
-snmp-server user cisco network-admin auth md5 37460CA6E3A652B1E82D0708BD4F973B78
-3F priv aes-128 006400BDAEF80DB8E0046B55AA028A767275 localizedV2key
-rmon event 1 log trap public description FATAL(1) owner PMON@FATAL
-rmon event 2 log trap public description CRITICAL(2) owner PMON@CRITICAL
-rmon event 3 log trap public description ERROR(3) owner PMON@ERROR
-rmon event 4 log trap public description WARNING(4) owner PMON@WARNING
-rmon event 5 log trap public description INFORMATION(5) owner PMON@INFO
-
+!
 fabric forwarding anycast-gateway-mac 0001.0001.0001
+!
+! Static routes back spine-1 gi2
+!
 ip route 172.16.0.1/32 40.0.0.1
 ip route 172.16.0.2/32 40.0.0.1
+!
 vlan 1,10,20,50
 vlan 10
+  name VLAN00010
   vn-segment 1010
+  exit
 vlan 20
+  name VLAN00020
   vn-segment 10020
+  exit
 vlan 50
+  name VLAN00050
   vn-segment 50000
-
+  exit
+!
 route-map RM-REDIST-DIRECT permit 10
   description Allow all ..
 vrf context PROD
@@ -60,22 +44,27 @@ vrf context PROD
   address-family ipv4 unicast
     route-target import 65000:50000
     route-target export 65000:50000
+  exit
+!
 vrf context management
-
-
+!
 interface Vlan1
-
+!
 interface Vlan10
+  description default gateway for VLAN10
   no shutdown
   vrf member PROD
   ip address 192.168.10.1/24
   fabric forwarding mode anycast-gateway
-
+  exit
+!
 interface Vlan20
+  description default gateway for VLAN20
   no shutdown
   vrf member PROD
   ip address 192.168.20.1/24
-
+  exit
+!
 interface nve1
   no shutdown
   host-reachability protocol bgp
@@ -83,156 +72,44 @@ interface nve1
   member vni 1010
     ingress-replication protocol bgp
   member vni 50000 associate-vrf
-
+  exit
+!
 interface Ethernet1/1
   no switchport
   ip address 59.0.0.2/30
-
+  exit
+!
 interface Ethernet1/2
   description e1/2 <--> isrv-0 gi0/2
   no switchport
   ip address 40.0.0.2/30
   no shutdown
-
-interface Ethernet1/3
-
-interface Ethernet1/4
-
-interface Ethernet1/5
-
-interface Ethernet1/6
-
-interface Ethernet1/7
-
-interface Ethernet1/8
-
-interface Ethernet1/9
-
+  exit
+!
 interface Ethernet1/10
+  switchport
   switchport access vlan 10
-
+  no shutdown
+  exit
+!
 interface Ethernet1/11
+  switchport
   switchport access vlan 10
-
-interface Ethernet1/12
-
-interface Ethernet1/13
-
-interface Ethernet1/14
-
-interface Ethernet1/15
-
-interface Ethernet1/16
-
-interface Ethernet1/17
-
-interface Ethernet1/18
-
-interface Ethernet1/19
-
-interface Ethernet1/20
-
-interface Ethernet1/21
-
-interface Ethernet1/22
-
-interface Ethernet1/23
-
-interface Ethernet1/24
-
-interface Ethernet1/25
-
-interface Ethernet1/26
-
-interface Ethernet1/27
-
-interface Ethernet1/28
-
-interface Ethernet1/29
-
-interface Ethernet1/30
-
-interface Ethernet1/31
-
-interface Ethernet1/32
-
-interface Ethernet1/33
-
-interface Ethernet1/34
-
-interface Ethernet1/35
-
-interface Ethernet1/36
-
-interface Ethernet1/37
-
-interface Ethernet1/38
-
-interface Ethernet1/39
-
-interface Ethernet1/40
-
-interface Ethernet1/41
-
-interface Ethernet1/42
-
-interface Ethernet1/43
-
-interface Ethernet1/44
-
-interface Ethernet1/45
-
-interface Ethernet1/46
-
-interface Ethernet1/47
-
-interface Ethernet1/48
-
-interface Ethernet1/49
-
-interface Ethernet1/50
-
-interface Ethernet1/51
-
-interface Ethernet1/52
-
-interface Ethernet1/53
-
-interface Ethernet1/54
-
-interface Ethernet1/55
-
-interface Ethernet1/56
-
-interface Ethernet1/57
-
-interface Ethernet1/58
-
-interface Ethernet1/59
-
-interface Ethernet1/60
-
-interface Ethernet1/61
-
-interface Ethernet1/62
-
-interface Ethernet1/63
-
-interface Ethernet1/64
-
+  no shutdown
+  exit
+!
+!
 interface mgmt0
   vrf member management
-
+  exit
+!
 interface loopback0
   ip address 172.17.0.2/32
-
-interface loopback1
-  ip address 10.0.12.1/32
+!
 icam monitor scale
-
-line console
-line vty
+!
 boot nxos bootflash:/nxos64-cs.10.5.1.F.bin 
+!
 router bgp 65000
   router-id 172.17.0.2
   bestpath as-path multipath-relax
