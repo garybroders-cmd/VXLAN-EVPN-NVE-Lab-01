@@ -72,7 +72,49 @@ leaf-b# sho nve peer
 Interface Peer-IP                                 State LearnType Uptime   Router-Mac       
 --------- --------------------------------------  ----- --------- -------- ----------
 nve1      172.16.0.2                              Up    CP        00:00:10 n/a  
-            
 
- 
+See what's in the VLAN from the NXOS leaf-a
+
+
+ leaf-a# show mac address-table vlan 10
+Legend: 
+        * - primary entry, G - Gateway MAC, (R) - Routed MAC, O - Overlay MAC
+        age - seconds since last seen,+ - primary entry using vPC Peer-Link,
+        (T) - True, (F) - False, C - ControlPlane MAC, ~ - vsan,
+        (NA)- Not Applicable
+   VLAN     MAC Address      Type      age     Secure NTFY Ports
+---------+-----------------+--------+---------+------+----+------------------
+*   10     0050.0000.0d00   dynamic  NA         F      F    Eth1/12
+C   10     0050.0000.1000   dynamic  NA         F      F    nve1(172.17.0.2)
+*   10     0050.7966.6805   dynamic  NA         F      F    Eth1/10
+*   10     0050.7966.6806   dynamic  NA         F      F    Eth1/11
+C   10     0050.7966.6809   dynamic  NA         F      F    nve1(172.17.0.2)
+C   10     0050.7966.680a   dynamic  NA         F      F    nve1(172.17.0.2)
+C   10     5000.000e.0000   dynamic  NA         F      F    nve1(172.17.0.2)
+*   10     5000.000f.0000   dynamic  NA         F      F    Eth1/13
+G   10     5001.0000.1b08   static   -         F      F    sup-eth1(R)
+leaf-a#
+
+
+leaf-b# show mac address-table vlan 10
+Legend: 
+        * - primary entry, G - Gateway MAC, (R) - Routed MAC, O - Overlay MAC
+        age - seconds since last seen,+ - primary entry using vPC Peer-Link,
+        (T) - True, (F) - False, C - ControlPlane MAC, ~ - vsan,
+        (NA)- Not Applicable
+   VLAN     MAC Address      Type      age     Secure NTFY Ports
+---------+-----------------+--------+---------+------+----+------------------
+C   10     0050.0000.0d00   dynamic  NA         F      F    nve1(172.16.0.2)
+*   10     0050.0000.1000   dynamic  NA         F      F    Eth1/13
+C   10     0050.7966.6805   dynamic  NA         F      F    nve1(172.16.0.2)
+C   10     0050.7966.6806   dynamic  NA         F      F    nve1(172.16.0.2)
+*   10     0050.7966.6809   dynamic  NA         F      F    Eth1/10
+*   10     0050.7966.680a   dynamic  NA         F      F    Eth1/11
+*   10     5000.000e.0000   dynamic  NA         F      F    Eth1/12
+C   10     5000.000f.0000   dynamic  NA         F      F    nve1(172.16.0.2)
+G   10     5002.0000.1b08   static   -         F      F    sup-eth1(R)
+leaf-b# 
+
+
+
         
