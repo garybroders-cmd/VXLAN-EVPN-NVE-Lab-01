@@ -62,5 +62,17 @@ Primary  Secondary  Type             Ports
 
 
 leaf-a# 
+leaf-a# sho nve peers
+Interface Peer-IP                                 State LearnType Uptime   Router-Mac       
+--------- --------------------------------------  ----- --------- -------- ----------
+nve1      172.17.0.2                              Up    CP        00:01:23 n/a  
+            
+
+leaf-b# sho nve peer
+Interface Peer-IP                                 State LearnType Uptime   Router-Mac       
+--------- --------------------------------------  ----- --------- -------- ----------
+nve1      172.16.0.2                              Up    CP        00:00:10 n/a  
+            
+
  
         
