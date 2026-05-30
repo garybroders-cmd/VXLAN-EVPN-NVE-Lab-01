@@ -1,7 +1,10 @@
+VPC does not work properly in this solution
+
+
 show nve vni
 show nve peers
 show bgp l2vpn evpn summary
 show mac address-table vlan 10
-
+show vlan 
 
 
