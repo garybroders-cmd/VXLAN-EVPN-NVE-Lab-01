@@ -1,4 +1,4 @@
-Uncompleted project...]
+Uncompleted project...Best view in code atm.
 
 updating notes
 
