@@ -4,7 +4,81 @@ VPC does not work properly in this solution
 show nve vni
 show nve peers
 show bgp l2vpn evpn summary
-show mac address-table vlan 10
-show vlan 
+
+
+# show mac address-table vlan 10
+
+nsxos1(config-if-range)# show mac address-table vlan 10
+Legend: 
+        * - primary entry, G - Gateway MAC, (R) - Routed MAC, O - Overlay MAC
+        age - seconds since last seen,+ - primary entry using vPC Peer-Link,
+        (T) - True, (F) - False, C - ControlPlane MAC, ~ - vsan,
+        (NA)- Not Applicable
+   VLAN     MAC Address      Type      age     Secure NTFY Ports
+---------+-----------------+--------+---------+------+----+------------------
+*   10     0050.0000.0d00   dynamic  NA         F      F    Eth1/12
+C   10     0050.0000.0f00   dynamic  NA         F      F    nve1(172.17.0.2)
+*   10     0050.7966.6805   dynamic  NA         F      F    Eth1/11
+*   10     0050.7966.6808   dynamic  NA         F      F    Eth1/10
+C   10     0050.7966.6809   dynamic  NA         F      F    nve1(172.17.0.2)
+G   10     5001.0000.1b08   static   -         F      F    sup-eth1(R)
+nsxos1(config-if-range)# 
+
+
+# show nve peers
+
+nsxos1(config-if-range)# sho nve peers
+
+Interface Peer-IP                                 State LearnType Uptime   Route
+r-Mac       
+--------- --------------------------------------  ----- --------- -------- -----------------
+nve1      172.17.0.2                              Up    CP        00:26:45 5002.0000.1b08 
+
+
+
+# show vlan 
+
+nsxos1(config-if-range)# sho nve peers
+Interface Peer-IP                                 State LearnType Uptime   Route
+r-Mac       
+--------- --------------------------------------  ----- --------- -------- -----------------
+nve1      172.17.0.2                              Up    CP        00:26:45 5002.0000.1b08   
+
+nsxos1(config-if-range)# show mac address-table vlan 10
+Legend: 
+        * - primary entry, G - Gateway MAC, (R) - Routed MAC, O - Overlay MAC
+        age - seconds since last seen,+ - primary entry using vPC Peer-Link,
+        (T) - True, (F) - False, C - ControlPlane MAC, ~ - vsan,
+        (NA)- Not Applicable
+   VLAN     MAC Address      Type      age     Secure NTFY Ports
+---------+-----------------+--------+---------+------+----+------------------
+*   10     0050.0000.0d00   dynamic  NA         F      F    Eth1/12
+G   10     5001.0000.1b08   static   -          F      F    sup-eth1(R)
+nsxos1(config-if-range)# sho vlan
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    
+10   VLAN0010                         active    Eth1/10, Eth1/11, Eth1/12
+                                                Eth1/13, Eth1/14
+20   VLAN0020                         active    Eth1/15, Eth1/16, Eth1/17
+                                                Eth1/18, Eth1/19, Eth1/20
+50   VLAN0050                         active    
+
+VLAN Type         Vlan-mode
+---- -----        ----------
+1    enet         CE     
+10   enet         CE     
+20   enet         CE     
+50   enet         CE     
+
+Remote SPAN VLANs
+-------------------------------------------------------------------------------
+
+Primary  Secondary  Type             Ports
+-------  ---------  ---------------  -------------------------------------------
+
+
+
 
 
