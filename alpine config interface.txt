@@ -1,10 +1,24 @@
 
 login: root
-password: NULL
+password: <NULL>
+
+! Run at command prompt 
+
+# setup-alpine 
+
+or manually do it.
+
+! Setup the hostname on linux alpine device 
+
+# setup-hostname -n LINUX14
+
+! reboot required.
+
+! Set IP address 
 
 sudo vi /etc/network/interfaces
 
-
+setup-hostname -n LINUX14
 auto lo
 iface lo inet loopback
 
@@ -15,8 +29,8 @@ iface eth0 inet static
     gateway 192.168.X.1
 
 
-ifdown eth0
-ifup eth0
+# ifdown eth0
+# ifup eth0
 
 
 ip addr flush dev eth0
